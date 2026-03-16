@@ -1,0 +1,26 @@
+services:
+  frontend:
+    container_name: frontend
+    hostname: frontend-container
+    build:
+      context: ./Gmail_Spending_Tracker
+      dockerfile: Dockerfile
+    volumes:
+      - ./Gmail_Spending_Tracker:/frontend
+    command: tail -f /dev/null
+    profiles:
+      - donotstart
+    
+  bakcend:
+    container_name: backend
+    hostname: backend-container
+    build:
+      context: ./Gmail_Spending_Tracker_Backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./Gmail_Spending_Tracker_Backend/workspace:/workspace
+    env_file:
+      - ./Gmail_Spending_Tracker_Backend/.env
+    ports:
+      - "8000:8000" 
+    command: tail -f /dev/null
