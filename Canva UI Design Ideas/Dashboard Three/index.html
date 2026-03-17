@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analytics Dashboard</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { animation: fadeIn 0.6s ease-out forwards; }
+    .slide-up { animation: slideUp 0.6s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    body { box-sizing: border-box; }
+    
+    .stat-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .section-card {
+      transition: all 0.3s ease;
+    }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full relative overflow-auto" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);">
+   <!-- Gradient blobs -->
+   <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20" style="background: linear-gradient(135deg, #7c3aed, #6d28d9);"></div>
+   <div class="absolute -bottom-32 -left-40 w-96 h-96 rounded-full blur-3xl opacity-15" style="background: linear-gradient(135deg, #7c3aed, #8b5cf6);"></div><!-- Main content -->
+   <div class="relative z-10 w-full px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+    <!-- Header -->
+    <div class="fade-in mb-8 sm:mb-12 flex items-start justify-between">
+     <div>
+      <div class="flex items-center gap-3 mb-4">
+       <div id="logo" class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);">
+        <i data-lucide="chart-line" style="width: 20px; height: 20px; color: #fff;"></i>
+       </div><span id="app-title" class="text-2xl font-bold" style="font-family: Outfit, sans-serif; color: #fff;">Pulse</span>
+      </div>
+      <h1 id="dashboard-heading" class="text-3xl sm:text-4xl font-bold" style="font-family: Outfit, sans-serif; color: #fff;">Performance Dashboard</h1>
+     </div><!-- User Profile Menu -->
+     <div class="relative">
+      <button id="profile-btn" class="w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110" style="background: rgba(139, 92, 246, 0.3); border: 1px solid rgba(139, 92, 246, 0.5);"> <i data-lucide="user" style="width: 20px; height: 20px; color: #a78bfa;"></i> </button> <!-- Dropdown Menu -->
+      <div id="profile-menu" class="hidden absolute right-0 mt-2 w-48 rounded-lg backdrop-blur-lg shadow-lg z-50" style="background: rgba(26, 26, 46, 0.95); border: 1px solid rgba(139, 92, 246, 0.3);">
+       <button id="logout-btn" class="w-full text-left px-4 py-3 flex items-center gap-2 rounded-lg hover:bg-red-500/20 transition-colors" style="font-family: Outfit, sans-serif; color: #f87171;"> <i data-lucide="log-out" style="width: 18px; height: 18px;"></i> <span>Log Out</span> </button>
+      </div>
+     </div>
+    </div><!-- Summary Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12">
+     <!-- Total Revenue -->
+     <div class="slide-up delay-1 stat-card rounded-xl p-6 backdrop-blur-lg" style="background: rgba(139, 92, 246, 0.25); border: 1px solid rgba(139, 92, 246, 0.4);">
+      <div class="flex items-center justify-between mb-3">
+       <p style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Total Revenue</p><i data-lucide="dollar-sign" style="width: 18px; height: 18px; color: #a78bfa;"></i>
+      </div>
+      <p id="total-revenue" class="text-2xl sm:text-3xl font-bold" style="font-family: Outfit, sans-serif; color: #fff;">$45,231</p>
+      <p style="font-family: Outfit, sans-serif; font-size: 0.75rem; color: rgba(167, 139, 250, 0.8); margin-top: 0.5rem;">↑ 12% from last month</p>
+     </div><!-- Total Users -->
+     <div class="slide-up delay-2 stat-card rounded-xl p-6 backdrop-blur-lg" style="background: rgba(99, 102, 241, 0.25); border: 1px solid rgba(99, 102, 241, 0.4);">
+      <div class="flex items-center justify-between mb-3">
+       <p style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Total Users</p><i data-lucide="users" style="width: 18px; height: 18px; color: #818cf8;"></i>
+      </div>
+      <p id="total-users" class="text-2xl sm:text-3xl font-bold" style="font-family: Outfit, sans-serif; color: #fff;">8,942</p>
+      <p style="font-family: Outfit, sans-serif; font-size: 0.75rem; color: rgba(129, 140, 248, 0.8); margin-top: 0.5rem;">↑ 5% from last month</p>
+     </div><!-- Total Conversions -->
+     <div class="slide-up delay-3 stat-card rounded-xl p-6 backdrop-blur-lg" style="background: rgba(236, 72, 153, 0.25); border: 1px solid rgba(236, 72, 153, 0.4);">
+      <div class="flex items-center justify-between mb-3">
+       <p style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.7); font-size: 0.875rem;">Total Conversions</p><i data-lucide="trending-up" style="width: 18px; height: 18px; color: #f472b6;"></i>
+      </div>
+      <p id="total-conversions" class="text-2xl sm:text-3xl font-bold" style="font-family: Outfit, sans-serif; color: #fff;">3,421</p>
+      <p style="font-family: Outfit, sans-serif; font-size: 0.75rem; color: rgba(244, 114, 182, 0.8); margin-top: 0.5rem;">↑ 8% from last month</p>
+     </div>
+    </div><!-- Data Sections -->
+    <div id="sections-container" class="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+     <!-- Revenue Section -->
+     <div class="slide-up delay-3 section-card rounded-xl backdrop-blur-lg p-6" data-section-id="revenue" style="background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.3);">
+      <div class="flex items-center justify-between mb-6">
+       <h2 id="revenue-title" class="text-lg sm:text-xl font-bold" style="font-family: Outfit, sans-serif; color: #a78bfa;">Revenue</h2>
+       <div class="flex items-center gap-2"><button class="delete-section-btn p-1 rounded hover:bg-red-500/20 transition-colors" style="color: #a78bfa;"> <i data-lucide="x" style="width: 18px; height: 18px;"></i> </button>
+       </div>
+      </div>
+      <div class="space-y-4">
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(139, 92, 246, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-15 14:30</span> <span style="font-family: Outfit, sans-serif; color: #a78bfa; font-weight: 600;">$5,240</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(139, 92, 246, 0.1);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-14 10:15</span> <span style="font-family: Outfit, sans-serif; color: #a78bfa; font-weight: 600;">$4,890</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(139, 92, 246, 0.1);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-13 16:45</span> <span style="font-family: Outfit, sans-serif; color: #a78bfa; font-weight: 600;">$6,120</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(139, 92, 246, 0.1);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-12 09:20</span> <span style="font-family: Outfit, sans-serif; color: #a78bfa; font-weight: 600;">$5,560</span>
+       </div>
+      </div>
+     </div><!-- Active Users Section -->
+     <div class="slide-up delay-4 section-card rounded-xl backdrop-blur-lg p-6" data-section-id="users" style="background: rgba(99, 102, 241, 0.2); border: 1px solid rgba(99, 102, 241, 0.3);">
+      <div class="flex items-center justify-between mb-6">
+       <h2 id="users-title" class="text-lg sm:text-xl font-bold" style="font-family: Outfit, sans-serif; color: #818cf8;">Active Users</h2><button class="delete-section-btn p-1 rounded hover:bg-red-500/20 transition-colors" style="color: #818cf8;"> <i data-lucide="x" style="width: 18px; height: 18px;"></i> </button>
+      </div>
+      <div class="space-y-4">
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(99, 102, 241, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-15 14:30</span> <span style="font-family: Outfit, sans-serif; color: #818cf8; font-weight: 600;">2,340</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(99, 102, 241, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-14 10:15</span> <span style="font-family: Outfit, sans-serif; color: #818cf8; font-weight: 600;">2,156</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(99, 102, 241, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-13 16:45</span> <span style="font-family: Outfit, sans-serif; color: #818cf8; font-weight: 600;">2,089</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(99, 102, 241, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-12 09:20</span> <span style="font-family: Outfit, sans-serif; color: #818cf8; font-weight: 600;">1,945</span>
+       </div>
+      </div>
+     </div><!-- Conversions Section -->
+     <div class="slide-up delay-5 section-card rounded-xl backdrop-blur-lg p-6" data-section-id="conversions" style="background: rgba(236, 72, 153, 0.2); border: 1px solid rgba(236, 72, 153, 0.3);">
+      <div class="flex items-center justify-between mb-6">
+       <h2 id="conversions-title" class="text-lg sm:text-xl font-bold" style="font-family: Outfit, sans-serif; color: #f472b6;">Conversions</h2><button class="delete-section-btn p-1 rounded hover:bg-red-500/20 transition-colors" style="color: #f472b6;"> <i data-lucide="x" style="width: 18px; height: 18px;"></i> </button>
+      </div>
+      <div class="space-y-4">
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(236, 72, 153, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-15 14:30</span> <span style="font-family: Outfit, sans-serif; color: #f472b6; font-weight: 600;">892</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(236, 72, 153, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-14 10:15</span> <span style="font-family: Outfit, sans-serif; color: #f472b6; font-weight: 600;">756</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(236, 72, 153, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-13 16:45</span> <span style="font-family: Outfit, sans-serif; color: #f472b6; font-weight: 600;">934</span>
+       </div>
+       <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: rgba(236, 72, 153, 0.2);">
+        <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-12 09:20</span> <span style="font-family: Outfit, sans-serif; color: #f472b6; font-weight: 600;">839</span>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Floating Add Section Button --> <button id="add-section-btn" class="fixed bottom-8 right-8 w-16 h-16 rounded-full flex items-center justify-center font-semibold transition-all shadow-lg hover:shadow-xl hover:scale-110" style="background: linear-gradient(135deg, #8b5cf6, #6366f1); color: #fff; font-family: Outfit, sans-serif; z-index: 50;"> <i data-lucide="plus" style="width: 32px; height: 32px;"></i> </button><!-- Add Section Modal -->
+   <div id="add-section-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4" style="background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px);">
+    <div class="bg-gray-900 rounded-xl p-8 w-full max-w-md shadow-2xl" style="border: 1px solid rgba(139, 92, 246, 0.3);">
+     <h3 class="text-2xl font-bold mb-6" style="font-family: Outfit, sans-serif; color: #fff;">Create New Section</h3><input id="section-name-input" type="text" placeholder="Enter section name..." class="w-full px-4 py-3 rounded-lg mb-6 focus:outline-none focus:ring-2" style="background: rgba(139, 92, 246, 0.2); border: 1px solid rgba(139, 92, 246, 0.3); color: #fff; font-family: Outfit, sans-serif; focus-ring-color: rgba(139, 92, 246, 0.5);">
+     <div class="flex gap-3"><button id="modal-cancel-btn" class="flex-1 px-4 py-3 rounded-lg font-semibold transition-colors" style="background: rgba(255, 255, 255, 0.1); color: #fff; font-family: Outfit, sans-serif; border: 1px solid rgba(255, 255, 255, 0.2);">Cancel</button> <button id="modal-create-btn" class="flex-1 px-4 py-3 rounded-lg font-semibold transition-colors" style="background: linear-gradient(135deg, #8b5cf6, #6366f1); color: #fff; font-family: Outfit, sans-serif;">Create</button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_gradient_start: '#1a1a2e',
+      background_gradient_end: '#16213e',
+      primary_accent: '#8b5cf6',
+      secondary_accent: '#6366f1',
+      text_color: '#ffffff',
+      secondary_text_color: '#a78bfa',
+      font_family: 'Outfit',
+      font_size: 16,
+      app_title: 'Pulse',
+      dashboard_heading: 'Performance Dashboard',
+      revenue_section: 'Revenue',
+      users_section: 'Active Users',
+      conversions_section: 'Conversions'
+    };
+
+    const colorSchemes = [
+      { bg: 'rgba(139, 92, 246, 0.2)', border: 'rgba(139, 92, 246, 0.3)', accent: '#a78bfa', darkBg: 'rgba(139, 92, 246, 0.2)' },
+      { bg: 'rgba(99, 102, 241, 0.2)', border: 'rgba(99, 102, 241, 0.3)', accent: '#818cf8', darkBg: 'rgba(99, 102, 241, 0.2)' },
+      { bg: 'rgba(236, 72, 153, 0.2)', border: 'rgba(236, 72, 153, 0.3)', accent: '#f472b6', darkBg: 'rgba(236, 72, 153, 0.2)' },
+      { bg: 'rgba(34, 197, 94, 0.2)', border: 'rgba(34, 197, 94, 0.3)', accent: '#86efac', darkBg: 'rgba(34, 197, 94, 0.2)' },
+      { bg: 'rgba(59, 130, 246, 0.2)', border: 'rgba(59, 130, 246, 0.3)', accent: '#93c5fd', darkBg: 'rgba(59, 130, 246, 0.2)' }
+    ];
+
+    let sectionCount = 3;
+
+    function createNewSection(title) {
+      const scheme = colorSchemes[sectionCount % colorSchemes.length];
+      const sectionId = `section-${Date.now()}`;
+      
+      const sectionHTML = `
+        <div class="slide-up section-card rounded-xl backdrop-blur-lg p-6" data-section-id="${sectionId}" style="background: ${scheme.bg}; border: 1px solid ${scheme.border};">
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="section-title text-lg sm:text-xl font-bold" style="font-family: Outfit, sans-serif; color: ${scheme.accent};">${title}</h2>
+            <button class="delete-section-btn p-1 rounded hover:bg-red-500/20 transition-colors" style="color: ${scheme.accent};">
+              <i data-lucide="x" style="width: 18px; height: 18px;"></i>
+            </button>
+          </div>
+          <div class="space-y-4">
+            <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: ${scheme.darkBg};">
+              <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-15 14:30</span>
+              <span style="font-family: Outfit, sans-serif; color: ${scheme.accent}; font-weight: 600;">$5,240</span>
+            </div>
+            <div class="flex justify-between items-center py-3 px-4 rounded-lg" style="background: ${scheme.darkBg};">
+              <span style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8); font-size: 0.875rem;">2024-01-14 10:15</span>
+              <span style="font-family: Outfit, sans-serif; color: ${scheme.accent}; font-weight: 600;">$4,890</span>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const container = document.getElementById('sections-container');
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = sectionHTML;
+      const newSection = tempDiv.firstElementChild;
+      container.appendChild(newSection);
+      
+      sectionCount++;
+      lucide.createIcons();
+      attachDeleteButton(newSection);
+    }
+
+    function attachDeleteButton(section) {
+      const deleteBtn = section.querySelector('.delete-section-btn');
+      deleteBtn.addEventListener('click', () => {
+        section.style.opacity = '0';
+        section.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => section.remove(), 300);
+      });
+    }
+
+    const modal = document.getElementById('add-section-modal');
+    const input = document.getElementById('section-name-input');
+    const createBtn = document.getElementById('modal-create-btn');
+    const cancelBtn = document.getElementById('modal-cancel-btn');
+
+    document.getElementById('add-section-btn').addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      input.value = '';
+      input.focus();
+    });
+
+    function closeModal() {
+      modal.classList.add('hidden');
+      input.value = '';
+    }
+
+    cancelBtn.addEventListener('click', closeModal);
+
+    createBtn.addEventListener('click', () => {
+      const sectionName = input.value.trim();
+      if (sectionName) {
+        createNewSection(sectionName);
+        closeModal();
+      }
+    });
+
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        const sectionName = input.value.trim();
+        if (sectionName) {
+          createNewSection(sectionName);
+          closeModal();
+        }
+      }
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Attach delete buttons to existing sections
+    document.querySelectorAll('.delete-section-btn').forEach(btn => {
+      attachDeleteButton(btn.closest('.section-card'));
+    });
+
+    // Profile menu toggle
+    const profileBtn = document.getElementById('profile-btn');
+    const profileMenu = document.getElementById('profile-menu');
+    const logoutBtn = document.getElementById('logout-btn');
+
+    profileBtn.addEventListener('click', () => {
+      profileMenu.classList.toggle('hidden');
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!profileBtn.contains(e.target) && !profileMenu.contains(e.target)) {
+        profileMenu.classList.add('hidden');
+      }
+    });
+
+    // Logout handler
+    logoutBtn.addEventListener('click', () => {
+      profileMenu.classList.add('hidden');
+      // Show a logout confirmation message
+      const message = document.createElement('div');
+      message.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: rgba(34, 197, 94, 0.2);
+        border: 1px solid rgba(34, 197, 94, 0.5);
+        color: #86efac;
+        padding: 16px 24px;
+        border-radius: 8px;
+        font-family: Outfit, sans-serif;
+        z-index: 9999;
+        backdrop-filter: blur(10px);
+        animation: slideDown 0.3s ease;
+      `;
+      message.textContent = 'You have been logged out successfully!';
+      document.body.appendChild(message);
+      
+      setTimeout(() => {
+        message.style.animation = 'slideUp 0.3s ease';
+        setTimeout(() => message.remove(), 300);
+      }, 3000);
+    });
+
+    async function onConfigChange(config) {
+      const c = key => config[key] || defaultConfig[key];
+
+      // Background
+      document.getElementById('app-wrapper').style.background = `linear-gradient(135deg, ${c('background_gradient_start')}, ${c('background_gradient_end')})`;
+
+      // Logo
+      const logo = document.getElementById('logo');
+      logo.style.background = `linear-gradient(135deg, ${c('primary_accent')}, ${c('secondary_accent')})`;
+
+      // App title
+      const appTitle = document.getElementById('app-title');
+      appTitle.textContent = c('app_title');
+      appTitle.style.fontFamily = `${c('font_family')}, sans-serif`;
+      appTitle.style.fontSize = `${c('font_size') * 1.375}px`;
+
+      // Dashboard heading
+      document.getElementById('dashboard-heading').textContent = c('dashboard_heading');
+      document.getElementById('dashboard-heading').style.fontFamily = `${c('font_family')}, sans-serif`;
+      document.getElementById('dashboard-heading').style.fontSize = `${c('font_size') * 2}px`;
+
+      // Section titles
+      document.getElementById('revenue-title').textContent = c('revenue_section');
+      document.getElementById('revenue-title').style.fontFamily = `${c('font_family')}, sans-serif`;
+      document.getElementById('users-title').textContent = c('users_section');
+      document.getElementById('users-title').style.fontFamily = `${c('font_family')}, sans-serif`;
+      document.getElementById('conversions-title').textContent = c('conversions_section');
+      document.getElementById('conversions-title').style.fontFamily = `${c('font_family')}, sans-serif`;
+    }
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange,
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.primary_accent || defaultConfig.primary_accent, set: (v) => { config.primary_accent = v; window.elementSdk.setConfig({ primary_accent: v }); } },
+          { get: () => config.secondary_accent || defaultConfig.secondary_accent, set: (v) => { config.secondary_accent = v; window.elementSdk.setConfig({ secondary_accent: v }); } },
+          { get: () => config.background_gradient_start || defaultConfig.background_gradient_start, set: (v) => { config.background_gradient_start = v; window.elementSdk.setConfig({ background_gradient_start: v }); } },
+          { get: () => config.background_gradient_end || defaultConfig.background_gradient_end, set: (v) => { config.background_gradient_end = v; window.elementSdk.setConfig({ background_gradient_end: v }); } },
+          { get: () => config.secondary_text_color || defaultConfig.secondary_text_color, set: (v) => { config.secondary_text_color = v; window.elementSdk.setConfig({ secondary_text_color: v }); } }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['app_title', config.app_title || defaultConfig.app_title],
+        ['dashboard_heading', config.dashboard_heading || defaultConfig.dashboard_heading],
+        ['revenue_section', config.revenue_section || defaultConfig.revenue_section],
+        ['users_section', config.users_section || defaultConfig.users_section],
+        ['conversions_section', config.conversions_section || defaultConfig.conversions_section]
+      ])
+    });
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dd1c33d164a3c03',t:'MTc3MzY0MzE4Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

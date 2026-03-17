@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .fade-in { animation: fadeIn 1s ease-out forwards; }
+    .slide-up { animation: slideUp 0.8s ease-out forwards; opacity: 0; }
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+    .delay-3 { animation-delay: 0.6s; }
+    .delay-4 { animation-delay: 0.8s; }
+
+    @keyframes shimmer {
+      0% { background-position: -1000px 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    .input-focus {
+      transition: all 0.3s ease;
+    }
+
+    .input-focus:focus {
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+      border-color: #8b5cf6;
+    }
+
+    body { box-sizing: border-box; }
+  </style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full relative overflow-hidden" style="background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);"><!-- Gradient blobs -->
+   <div class="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);"></div>
+   <div class="absolute -bottom-32 -left-40 w-96 h-96 rounded-full blur-3xl opacity-15" style="background: linear-gradient(135deg, #8b5cf6, #3b82f6);"></div><!-- Main content -->
+   <div class="relative z-10 w-full h-full flex flex-col items-center justify-center px-4 py-8"><!-- Logo section -->
+    <div class="fade-in mb-12 sm:mb-16 text-center">
+     <div id="logo-container" class="flex items-center justify-center gap-3 mb-4">
+      <div id="logo" class="w-12 h-12 rounded-xl flex items-center justify-center" style="background: linear-gradient(135deg, #8b5cf6, #6366f1);"><i data-lucide="zap" style="width: 24px; height: 24px; color: #fff;"></i>
+      </div><span id="app-title" class="text-2xl font-bold" style="font-family: Outfit, sans-serif; color: #fff;">Pulse</span>
+     </div>
+    </div><!-- Login form card -->
+    <div class="slide-up delay-1 w-full max-w-md">
+     <div class="rounded-2xl backdrop-blur-xl p-8 sm:p-10" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);"><!-- Heading section -->
+      <div class="mb-8">
+       <h1 id="login-heading" class="text-3xl sm:text-4xl font-bold mb-2" style="font-family: Outfit, sans-serif; color: #fff;">Sign In</h1>
+       <p id="login-description" class="text-base" style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.7);">Access your account</p>
+      </div><!-- Google button --> <button id="google-signin" class="slide-up delay-2 w-full flex items-center justify-center gap-3 px-6 py-3 rounded-lg font-medium transition-all mb-6" style="font-family: Outfit, sans-serif; background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff;">
+       <svg width="20" height="20" viewbox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4" /> <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853" /> <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05" /> <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
+       </svg><span id="google-btn-text">Continue with Google</span> </button> <!-- Divider -->
+      <div class="slide-up delay-3 flex items-center gap-3 my-8">
+       <div class="flex-1 h-px" style="background: rgba(255, 255, 255, 0.1);"></div><span style="font-family: Outfit, sans-serif; font-size: 0.875rem; color: rgba(255, 255, 255, 0.5);">or</span>
+       <div class="flex-1 h-px" style="background: rgba(255, 255, 255, 0.1);"></div>
+      </div><!-- Email input -->
+      <div class="slide-up delay-3 mb-5"><label for="email" class="block text-sm font-medium mb-2" style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8);" id="email-label">Email Address</label> <input type="email" id="email" placeholder="you@example.com" class="w-full px-4 py-3 rounded-lg border input-focus transition-all" style="font-family: Outfit, sans-serif; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); color: #fff;">
+       <style>
+        #email::placeholder { color: rgba(255, 255, 255, 0.4); }
+       </style>
+      </div><!-- Password input -->
+      <div class="slide-up delay-4 mb-6"><label for="password" class="block text-sm font-medium mb-2" style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.8);" id="password-label">Password</label> <input type="password" id="password" placeholder="••••••••" class="w-full px-4 py-3 rounded-lg border input-focus transition-all" style="font-family: Outfit, sans-serif; background: rgba(255, 255, 255, 0.08); border-color: rgba(255, 255, 255, 0.2); color: #fff;">
+       <style>
+        #password::placeholder { color: rgba(255, 255, 255, 0.4); }
+       </style>
+      </div><!-- Sign in button --> <button id="signin-btn" onclick="handleSignIn(event)" class="slide-up delay-4 w-full py-3 rounded-lg font-semibold text-white transition-all mb-6" style="font-family: Outfit, sans-serif; background: linear-gradient(135deg, #8b5cf6, #6366f1);"> Sign In </button> <!-- Signup link -->
+      <p class="slide-up delay-4 text-center text-sm" style="font-family: Outfit, sans-serif; color: rgba(255, 255, 255, 0.7);">Don't have an account? <a href="#" class="font-semibold transition-colors" style="color: #a78bfa;">Sign up</a></p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      background_gradient_start: '#1a1a2e',
+      background_gradient_end: '#16213e',
+      primary_accent: '#8b5cf6',
+      secondary_accent: '#6366f1',
+      text_color: '#ffffff',
+      secondary_text_color: 'rgba(255, 255, 255, 0.7)',
+      input_background: 'rgba(255, 255, 255, 0.08)',
+      input_border: 'rgba(255, 255, 255, 0.2)',
+      font_family: 'Outfit',
+      font_size: 16,
+      app_title: 'Pulse',
+      login_heading: 'Sign In',
+      login_description: 'Access your account',
+      email_label: 'Email Address',
+      password_label: 'Password',
+      signin_button_text: 'Sign In',
+      google_button_text: 'Continue with Google',
+      signup_text: 'Sign up'
+    };
+
+    function handleSignIn(event) {
+      event.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      if (email && password) {
+        const successMsg = document.createElement('div');
+        successMsg.className = 'fixed top-6 right-6 bg-green-500 text-white px-6 py-3 rounded-lg font-medium z-50';
+        successMsg.textContent = 'Sign in successful! (Demo mode)';
+        document.body.appendChild(successMsg);
+        setTimeout(() => successMsg.remove(), 3000);
+      }
+    }
+
+    async function onConfigChange(config) {
+      const c = key => config[key] || defaultConfig[key];
+
+      // Background
+      document.getElementById('app-wrapper').style.background = `linear-gradient(135deg, ${c('background_gradient_start')}, ${c('background_gradient_end')})`;
+
+      // Logo
+      const logo = document.getElementById('logo');
+      logo.style.background = `linear-gradient(135deg, ${c('primary_accent')}, ${c('secondary_accent')})`;
+
+      // App title
+      const appTitle = document.getElementById('app-title');
+      appTitle.textContent = c('app_title');
+      appTitle.style.fontFamily = `${c('font_family')}, sans-serif`;
+      appTitle.style.fontSize = `${c('font_size') * 1.375}px`;
+
+      // Heading
+      document.getElementById('login-heading').textContent = c('login_heading');
+      document.getElementById('login-heading').style.fontFamily = `${c('font_family')}, sans-serif`;
+      document.getElementById('login-heading').style.fontSize = `${c('font_size') * 1.875}px`;
+
+      // Description
+      document.getElementById('login-description').textContent = c('login_description');
+      document.getElementById('login-description').style.fontFamily = `${c('font_family')}, sans-serif`;
+
+      // Labels
+      document.getElementById('email-label').textContent = c('email_label');
+      document.getElementById('email-label').style.fontFamily = `${c('font_family')}, sans-serif`;
+      document.getElementById('password-label').textContent = c('password_label');
+      document.getElementById('password-label').style.fontFamily = `${c('font_family')}, sans-serif`;
+
+      // Inputs
+      document.getElementById('email').style.backgroundColor = c('input_background');
+      document.getElementById('email').style.borderColor = c('input_border');
+      document.getElementById('email').style.fontFamily = `${c('font_family')}, sans-serif`;
+      document.getElementById('password').style.backgroundColor = c('input_background');
+      document.getElementById('password').style.borderColor = c('input_border');
+      document.getElementById('password').style.fontFamily = `${c('font_family')}, sans-serif`;
+
+      // Sign in button
+      document.getElementById('signin-btn').textContent = c('signin_button_text');
+      document.getElementById('signin-btn').style.background = `linear-gradient(135deg, ${c('primary_accent')}, ${c('secondary_accent')})`;
+      document.getElementById('signin-btn').style.fontFamily = `${c('font_family')}, sans-serif`;
+
+      // Google button
+      document.getElementById('google-btn-text').textContent = c('google_button_text');
+
+      // Signup link
+      const signupLink = document.querySelector('a[href="#"]');
+      signupLink.textContent = c('signup_text');
+      signupLink.style.color = c('primary_accent');
+    }
+
+    window.elementSdk.init({
+      defaultConfig,
+      onConfigChange,
+      mapToCapabilities: (config) => ({
+        recolorables: [
+          { get: () => config.primary_accent || defaultConfig.primary_accent, set: (v) => { config.primary_accent = v; window.elementSdk.setConfig({ primary_accent: v }); } },
+          { get: () => config.secondary_accent || defaultConfig.secondary_accent, set: (v) => { config.secondary_accent = v; window.elementSdk.setConfig({ secondary_accent: v }); } },
+          { get: () => config.text_color || defaultConfig.text_color, set: (v) => { config.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+          { get: () => config.background_gradient_start || defaultConfig.background_gradient_start, set: (v) => { config.background_gradient_start = v; window.elementSdk.setConfig({ background_gradient_start: v }); } },
+          { get: () => config.background_gradient_end || defaultConfig.background_gradient_end, set: (v) => { config.background_gradient_end = v; window.elementSdk.setConfig({ background_gradient_end: v }); } }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (v) => { config.font_family = v; window.elementSdk.setConfig({ font_family: v }); }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (v) => { config.font_size = v; window.elementSdk.setConfig({ font_size: v }); }
+        }
+      }),
+      mapToEditPanelValues: (config) => new Map([
+        ['app_title', config.app_title || defaultConfig.app_title],
+        ['login_heading', config.login_heading || defaultConfig.login_heading],
+        ['login_description', config.login_description || defaultConfig.login_description],
+        ['email_label', config.email_label || defaultConfig.email_label],
+        ['password_label', config.password_label || defaultConfig.password_label],
+        ['signin_button_text', config.signin_button_text || defaultConfig.signin_button_text],
+        ['google_button_text', config.google_button_text || defaultConfig.google_button_text],
+        ['signup_text', config.signup_text || defaultConfig.signup_text]
+      ])
+    });
+
+    lucide.createIcons();
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9dd1ade71228db8f',t:'MTc3MzY0MjMxMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
