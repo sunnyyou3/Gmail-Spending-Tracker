@@ -1,16 +1,44 @@
-import { LinearGradient } from 'expo-linear-gradient';
+import { View } from "react-native";
+import Svg, { Defs, RadialGradient, Stop, Circle } from "react-native-svg";
 
-export const Orbs = ({ style }: any) => {
+type OrbProps = {
+  orbId: number;
+  size: number;
+  color: string;
+  style?: any;
+};
+
+export const Orbs = ({ orbId, size, color, style }: OrbProps) => {
+  const radius = size / 2;
+
+  const gradientId = "gradient-" + orbId;
+
   return (
-    <LinearGradient
-      colors={["#6d28d9", "transparent"]}
-      style={[
-        style,
-        {
-          position: "absolute",
-          borderRadius: 9999,
-        },
-      ]}
-    />
+    <View style={[{ position: "absolute" }, style]}>
+      <Svg width={size} height={size}>
+        <Defs>
+          <RadialGradient
+            id={gradientId}
+            cx={radius}
+            cy={radius}
+            r={radius}
+            gradientUnits="userSpaceOnUse"
+          >
+          <Stop offset="0%" stopColor={color} stopOpacity="0.6" />
+          <Stop offset="10%" stopColor={color} stopOpacity="0.5" />
+          <Stop offset="50%" stopColor={color} stopOpacity="0.25" />
+          <Stop offset="80%" stopColor={color} stopOpacity="0.08" />
+          <Stop offset="100%" stopColor={color} stopOpacity="0" />
+          </RadialGradient>
+        </Defs>
+
+        <Circle
+          cx={radius}
+          cy={radius}
+          r={radius}
+          fill={`url(#${gradientId})`}
+        />
+      </Svg>
+    </View>
   );
 };
