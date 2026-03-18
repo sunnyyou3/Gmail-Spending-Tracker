@@ -1,7 +1,6 @@
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { colors } from "../../constants/color";
 import Orbs from "./orbs";
-import { orbStyles } from "@/constants/style";
 import GridBackground from "./grid";
 
 export type BackgroundProps = {
@@ -21,5 +20,23 @@ const Background = ({ children }: BackgroundProps) => {
     </View>
   )
 };
+
+const orbStyles = StyleSheet.create({
+  orb_1: {
+        opacity: .6,
+        top: '-30%',
+        right: '0%',
+    },
+    orb_2: {
+        opacity: 0.4,
+        bottom: '-10%',
+        left: '-5%',
+    },
+    orb_3: {
+        opacity: 0.35,
+        top: '30%',
+        left: '52%',
+    }
+});
 
 export default Background;

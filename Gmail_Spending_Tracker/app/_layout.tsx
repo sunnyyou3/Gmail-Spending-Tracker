@@ -1,4 +1,3 @@
-import { View } from "react-native";
 import Background from "./_components/background";
 import { Slot } from "expo-router";
 
