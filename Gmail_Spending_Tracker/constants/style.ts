@@ -1,10 +1,8 @@
-import { colors } from "./color";
-
 export const orbStyles = {
     orb_1: {
-        opacity: 0.5,
+        opacity: .6,
         top: '-30%',
-        right: '-5%',
+        right: '0%',
     },
     orb_2: {
         opacity: 0.4,
@@ -14,6 +12,6 @@ export const orbStyles = {
     orb_3: {
         opacity: 0.35,
         top: '30%',
-        left: '45%',
+        left: '52%',
     }
 }

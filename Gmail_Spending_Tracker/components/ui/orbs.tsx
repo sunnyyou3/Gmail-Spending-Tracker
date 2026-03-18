@@ -24,7 +24,7 @@ export const Orbs = ({ orbId, size, color, style }: OrbProps) => {
             r={radius}
             gradientUnits="userSpaceOnUse"
           >
-          <Stop offset="0%" stopColor={color} stopOpacity="0.6" />
+          <Stop offset="0%" stopColor={color} stopOpacity="0.5" />
           <Stop offset="10%" stopColor={color} stopOpacity="0.5" />
           <Stop offset="50%" stopColor={color} stopOpacity="0.25" />
           <Stop offset="80%" stopColor={color} stopOpacity="0.08" />
