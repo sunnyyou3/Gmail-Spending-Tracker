@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 
 //   <div class="absolute inset-0 opacity-[0.04]" style="background-image: linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px); background-size: 60px 60px;"></div><!-- Nav -->
-export const GridBackground = () => {
+const GridBackground = () => {
     return (
         <View style={styles.container}>
             <View style={styles.grid} />
@@ -25,3 +25,5 @@ const styles = StyleSheet.create({
         backgroundSize: '60px 60px',
     },
 });
+
+export default GridBackground;

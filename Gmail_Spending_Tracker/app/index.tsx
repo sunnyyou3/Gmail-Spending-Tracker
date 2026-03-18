@@ -1,7 +1,7 @@
-import { Background } from "../components/ui/background";
+import Landing from "@/pages/landing/landing";
 
 export default function Index() {
   return (
-    <Background />
+    <Landing />
   );
 }

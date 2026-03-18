@@ -1,7 +1,9 @@
-import { Stack } from "expo-router";
+import { View } from "react-native";
+import Background from "./_components/background";
+import { Slot } from "expo-router";
 
 export default function RootLayout() {
-  return <Stack screenOptions={{
-      headerShown: false,
-    }}></Stack>;
+  return <Background >
+          <Slot />
+        </Background>
 }

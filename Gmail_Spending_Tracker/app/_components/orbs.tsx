@@ -8,7 +8,7 @@ type OrbProps = {
   style?: any;
 };
 
-export const Orbs = ({ orbId, size, color, style }: OrbProps) => {
+const Orbs = ({ orbId, size, color, style }: OrbProps) => {
   const radius = size / 2;
 
   const gradientId = "gradient-" + orbId;
@@ -42,3 +42,5 @@ export const Orbs = ({ orbId, size, color, style }: OrbProps) => {
     </View>
   );
 };
+
+export default Orbs;

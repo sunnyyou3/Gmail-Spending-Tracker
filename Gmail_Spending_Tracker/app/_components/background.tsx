@@ -1,14 +1,14 @@
 import { View } from "react-native";
 import { colors } from "../../constants/color";
-import { Orbs } from "./orbs";
+import Orbs from "./orbs";
 import { orbStyles } from "@/constants/style";
-import { GridBackground } from "./grid";
+import GridBackground from "./grid";
 
 export type BackgroundProps = {
   children?: React.ReactNode;
 };
 
-export const Background = ({ children }: BackgroundProps) => {
+const Background = ({ children }: BackgroundProps) => {
   return (
     <View style={{ backgroundColor: colors.background_color, flex: 1 }}> 
     <GridBackground />
@@ -21,3 +21,5 @@ export const Background = ({ children }: BackgroundProps) => {
     </View>
   )
 };
+
+export default Background;
