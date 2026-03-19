@@ -1,48 +1,75 @@
-import { Text, StyleSheet, View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { useState } from "react";
+import React from 'react';
+import {
+  Text,
+  StyleSheet,
+  Platform,
+  View,
+  TextStyle,
+  StyleProp,
+} from 'react-native';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
-export const GradientText = ({
-  children,
-  style,
-}: {
-  children: string;
-  style?: any;
-}) => {
-  const [textLayout, setTextLayout] = useState({ width: 0, height: 0 });
+type GradientTextProps = {
+  children: React.ReactNode;
+  style?: StyleProp<TextStyle>;
+  gradientColors: string[];
+};
 
+const GradientText: React.FC<GradientTextProps> = ({children, style, gradientColors }) => {
+  if (Platform.OS === 'web') {
+    return (
+      <Text
+        style={[
+          style,
+          {
+            backgroundImage: `linear-gradient(90deg, ${gradientColors.join(',')})`,
+            WebkitBackgroundClip: 'text',
+            color: 'transparent',
+          } as any,
+        ]}
+      >
+        {children}
+      </Text>
+    );
+  }
+
+  // mobile
   return (
     <MaskedView
+      androidRenderingMode="software"
       maskElement={
-        <Text 
-          style={[styles.text, style]}
-          onLayout={(e) => setTextLayout(e.nativeEvent.layout)}
-        >
-          {children}
-        </Text>
+        <View style={styles.center}>
+          <Text style={[style, styles.maskText]}>
+            {children}
+          </Text>
+        </View>
       }
     >
       <LinearGradient
-        colors={["#3b82f6", "#22d3ee"]}
+        colors={gradientColors as [string, string, ...string[]]}
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 0 }}
-        style={[
-          styles.text,
-          style,
-          {
-            height: textLayout.height || 60,
-            width: textLayout.width || 150,
-          },
-        ]}
-      />
+      >
+        <Text style={[style, styles.hiddenText]}>
+          {children}
+        </Text>
+      </LinearGradient>
     </MaskedView>
   );
 };
 
+export default GradientText;
+
 const styles = StyleSheet.create({
-  text: {
-    fontSize: 48,
-    fontWeight: "bold",
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  maskText: {
+    color: 'black',
+  },
+  hiddenText: {
+    opacity: 0,
   },
 });
