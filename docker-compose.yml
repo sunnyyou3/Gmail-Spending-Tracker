@@ -1,0 +1,24 @@
+services:
+  dev:
+    container_name: dev
+    hostname: dev-container
+    build:
+      context: ./Gmail_Spending_Tracker
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8081:8081"
+    environment:
+      - NODE_ENV=development
+    develop:
+      watch:
+        - action: sync
+          path: ./Gmail_Spending_Tracker/app
+          target: /app/app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./Gmail_Spending_Tracker/package.json
+          target: /app/package.json
+        - action: rebuild
+          path: ./Gmail_Spending_Tracker/vite.config.ts
+          target: /app/vite.config.ts
