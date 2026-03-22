@@ -1,6 +1,7 @@
 import { View, StyleSheet } from "react-native";
 import { Text } from "react-native";
 import GradientText  from "@/components/GradientText";
+import { Link } from "expo-router";
 
 const Landing = () => {
   return (
@@ -10,6 +11,7 @@ const Landing = () => {
           Pulse
         </GradientText>
       </Text>
+      <Link href="./login">Get Started</Link>
     </View>
   );
 }

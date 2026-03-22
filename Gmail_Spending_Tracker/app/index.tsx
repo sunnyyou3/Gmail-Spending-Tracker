@@ -1,4 +1,4 @@
-import Landing from "@/pages/landing/landing";
+import Landing from "@/app/pages/landing";
 
 export default function Index() {
   return (
