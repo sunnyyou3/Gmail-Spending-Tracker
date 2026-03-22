@@ -16,7 +16,7 @@ type GradientTextProps = {
   gradientColors: string[];
 };
 
-const GradientText: React.FC<GradientTextProps> = ({children, style, gradientColors }) => {
+const GradientText = ({children, style, gradientColors } : GradientTextProps) => {
   if (Platform.OS === 'web') {
     return (
       <Text
