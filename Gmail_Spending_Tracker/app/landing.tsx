@@ -1,54 +1,66 @@
-import { View, Text, StyleSheet, TouchableOpacity  } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Animated  } from "react-native";
 import GradientText  from "@/components/GradientText";
 import { Link } from "expo-router";
 import PillText from "@/components/PillText";
+import Fade from "@/components/animations/Fade";
 
 const Landing = () => {
   return (
-    <View style={{flex: 1}}>
-      <View style={landingStyles.header}>
+    <View style={{ flex: 1 }}>
+      <Animated.View style={[landingStyles.header, headerAnim]}>
         <View style={landingStyles.leftHeader}>
-          <GradientText style={{fontWeight: "bold", fontSize: 18}} gradientColors={["#a78bfa", "#22d3ee"]}>
-              Pulse
+          <GradientText style={{ fontWeight: "bold", fontSize: 18 }} gradientColors={["#a78bfa", "#22d3ee"]}>
+            Pulse
           </GradientText>
         </View>
+
         <View style={landingStyles.nav}>
-        <TouchableOpacity>
-          <Text style={landingStyles.link}>Features</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={landingStyles.link}>Guide</Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={landingStyles.link}>About</Text>
-        </TouchableOpacity>
-      </View>
-      </View>
+          <TouchableOpacity><Text style={landingStyles.link}>Features</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={landingStyles.link}>Guide</Text></TouchableOpacity>
+          <TouchableOpacity><Text style={landingStyles.link}>About</Text></TouchableOpacity>
+        </View>
+      </Animated.View>
+
       <View style={landingStyles.container}>
-          <View style={landingStyles.pillContainer}>
-            <PillText>Lightning Fast</PillText>
-            <PillText>Secure by Default</PillText>
-          </View>
-          <Text style={landingStyles.headline}>Budget Better With{' '}
-            <GradientText style={landingStyles.headline} gradientColors={["#a78bfa", "#22d3ee"]}>
-              Pulse
-            </GradientText>
-          </Text>
-          <Text style={landingStyles.description}>
-            The smart finance app that turns your emails into real-time spending insights — no manual tracking, no hassle.
-          </Text>
+        <Animated.View style={[landingStyles.pillContainer, pillAnim]}>
+          <PillText>Lightning Fast</PillText>
+          <PillText>Secure by Default</PillText>
+        </Animated.View>
+
+        <Animated.Text style={[landingStyles.headline, headlineAnim]}>
+          Budget Better With{" "}
+          <GradientText style={landingStyles.headline} gradientColors={["#a78bfa", "#22d3ee"]}>
+            Pulse
+          </GradientText>
+        </Animated.Text>
+
+        <Animated.Text style={[landingStyles.description, descAnim]}>
+          The smart finance app that turns your emails into real-time spending insights — no manual tracking, no hassle.
+        </Animated.Text>
+
+        <Animated.View style={buttonAnim}>
           <Link href="./login">
-            <GradientText style={landingStyles.buttonText} gradientColors={[ "#7c3aed", "#6d28d9", "#7c3aed", "#8b5cf6"]}>
+            <GradientText style={landingStyles.buttonText} gradientColors={["#7c3aed", "#6d28d9", "#7c3aed", "#8b5cf6"]}>
               Get Started
             </GradientText>
           </Link>
-          <Text style={landingStyles.bottomText}>
-            Your inbox knows your spending—we make it visible.
-          </Text>
-        </View>
+        </Animated.View>
+
+        <Animated.Text style={[landingStyles.bottomText, bottomAnim]}>
+          Your inbox knows your spending—we make it visible.
+        </Animated.Text>
+
+      </View>
     </View>
   );
-}
+};
+
+const headerAnim = Fade(0);
+const pillAnim = Fade(200);
+const headlineAnim = Fade(400);
+const descAnim = Fade(600);
+const buttonAnim = Fade(800);
+const bottomAnim = Fade(1000);
 
 const landingStyles = StyleSheet.create({
   container: {
@@ -123,7 +135,6 @@ const landingStyles = StyleSheet.create({
     letterSpacing: 1.5,
     textTransform: "uppercase",
     color: "#4a4a5a",
-    // fontFamily: "DM Sans",
   },
 });
 
