@@ -1,9 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import GradientText  from "@/components/GradientText";
 
 const Login = () => {
   return (
     <View style={loginStyles.container}>
+      <GradientText style={{ marginBottom: 40, fontWeight: "bold", fontSize: 30 }} gradientColors={["#a78bfa", "#22d3ee"]}>
+        Pulse
+      </GradientText>
       <View style={loginStyles.wrapper}>
         <View style={loginStyles.card}>
           
@@ -26,11 +30,9 @@ const loginStyles = StyleSheet.create({
     position: 'relative',
     zIndex: 10,
     flex: 1,
-    paddingTop: -80,
-    flexDirection: 'column',
+    marginBottom: 150,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 24
   },
   wrapper: {
     width: "100%",
