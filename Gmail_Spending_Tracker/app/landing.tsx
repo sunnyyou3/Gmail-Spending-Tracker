@@ -10,7 +10,7 @@ const Landing = () => {
       <Animated.View style={[landingStyles.header, headerAnim]}>
         <View style={landingStyles.leftHeader}>
           <GradientText style={{ fontWeight: "bold", fontSize: 18 }} gradientColors={["#a78bfa", "#22d3ee"]}>
-            Pulse
+            Buncha
           </GradientText>
         </View>
 
@@ -30,7 +30,7 @@ const Landing = () => {
         <Animated.Text style={[landingStyles.headline, headlineAnim]}>
           Budget Better With{" "}
           <GradientText style={landingStyles.headline} gradientColors={["#a78bfa", "#22d3ee"]}>
-            Pulse
+            Buncha
           </GradientText>
         </Animated.Text>
 

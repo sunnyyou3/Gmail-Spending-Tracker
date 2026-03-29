@@ -1,12 +1,13 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import GradientText  from "@/components/GradientText";
+import GoogleOauth from "@/services/GoogleOauth";
 
 const Login = () => {
   return (
     <View style={loginStyles.container}>
       <GradientText style={{ marginBottom: 40, fontWeight: "bold", fontSize: 30 }} gradientColors={["#a78bfa", "#22d3ee"]}>
-        Pulse
+        Buncha
       </GradientText>
       <View style={loginStyles.wrapper}>
         <View style={loginStyles.card}>
@@ -17,7 +18,8 @@ const Login = () => {
           </View>
 
           <TouchableOpacity style={loginStyles.googleBtn}>
-            <Text style={loginStyles.googleText}>Continue with Google</Text>
+            {/* <Text style={loginStyles.googleText}>Continue with Google</Text> */}
+            <GoogleOauth />
           </TouchableOpacity>
         </View>
       </View>
