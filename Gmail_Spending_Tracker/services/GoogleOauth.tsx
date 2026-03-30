@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import clientSecret from "@/secrets/client_secret_148029356875-kr1jv05injvi0gdkopbao9slm4r2e8o2.apps.googleusercontent.com.json"
+// import clientSecret from "@/secrets/client_secret_2_148029356875-kr1jv05injvi0gdkopbao9slm4r2e8o2.apps.googleusercontent.com.json"
 
 
 const GoogleOauth = () => {
