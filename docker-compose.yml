@@ -12,8 +12,8 @@ services:
     develop:
       watch:
         - action: sync
-          path: ./Gmail_Spending_Tracker/app
-          target: /app/app
+          path: ./Gmail_Spending_Tracker
+          target: /app
           ignore:
             - node_modules/
         - action: rebuild
